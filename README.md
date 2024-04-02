@@ -53,5 +53,7 @@ A Python project to detect fruits using Computer Vision and return their nutriti
     ]
 }
 ```
+> [!NOTE]
+> Remember to have `.env` file in the same directory as `API_call.py`, and **DO NOT** share the API key.
 
 
