@@ -6,7 +6,7 @@ A Python project to detect fruits using Computer Vision and return their nutriti
 ## Documentation
 #### API call 
 - All necessary functions are in `API_call.py`.
-- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns a dictionary of dictionaries of information about the ONE most relevant result.
+- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns a dictionary of information about the ONE most relevant result.
 - Shortened example of the return value of `get_api()`:
 ```Python
 {
