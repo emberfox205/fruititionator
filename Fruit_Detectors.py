@@ -1,3 +1,5 @@
+##This is the function for the fruit scanning,
+
 import cv2
 import numpy as np
 import time
