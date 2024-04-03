@@ -1,3 +1,6 @@
+#MAIN FILE
+#Currently the GUI is being edited here
+
 import json
 import cv2
 import numpy as np
