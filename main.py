@@ -15,9 +15,7 @@ class FruitDetectorApp:
         self.root.title("Fruit Detection")
 
         self.label = Label(root, text="", font=("Arial", 16))
-
-        self.label.pack()
-
+        self.label.pack(pady=20)
             
         self.canvas = tk.Canvas(root, width=640, height=480)
         self.canvas.pack(pady=20)
