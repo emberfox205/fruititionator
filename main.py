@@ -15,13 +15,13 @@ class FruitDetectorApp:
         self.root.title("Fruit Detection")
 
         self.label = Label(root, text="", font=("Arial", 16))
-        self.label.pack(pady=20)
+        self.label.grid(row=0, column=1, padx=20, pady=20)
             
-        self.canvas = tk.Canvas(root, width=640, height=480)
-        self.canvas.pack(pady=20)
+        self.canvas = tk.Canvas(root, width=640, height=640)
+        self.canvas.grid(row=0, column=0, padx=20, pady=20)
         
         self.scan_button = tk.Button(root, text="Scan", command=self.detect_fruit)
-        self.scan_button.pack(pady=20)
+        self.scan_button.grid(row=1, column=0, columnspan=2, pady=20)
 
     def detect_fruit(self):
 
@@ -44,7 +44,7 @@ class FruitDetectorApp:
         if hasattr(self, 'image_on_canvas'):
             self.canvas.delete(self.image_on_canvas)
         
-        self.image_on_canvas = self.canvas.create_image(20, 100, anchor=tk.NW, image=image)
+        self.image_on_canvas = self.canvas.create_image(20, 100, anchor="NW", image=image)
         self.canvas.image = image
 
 
