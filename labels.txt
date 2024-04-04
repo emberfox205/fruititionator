@@ -1,8 +1,0 @@
-0 Apple (Granny Smith)
-1 Apple (Red Delicious)
-2 Banana Raw 
-3 Red Cherry 
-4 Green Grape
-5 Unripe Mango 
-6 Orange
-7 Strawberry
