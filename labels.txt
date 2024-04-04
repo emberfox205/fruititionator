@@ -1,8 +1,0 @@
-0 Apple
-1 Banana
-2 Cherry
-3 Grape
-4 Kiwi
-5 Mango
-6 Orange
-7 Strawberry
