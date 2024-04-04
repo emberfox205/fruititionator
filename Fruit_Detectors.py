@@ -43,24 +43,25 @@ def detect_fruit():
 
         print(f"Class: {class_name[2:]}, Confidence Score: {np.round(confidence_score * 100)}")
 
-        elapsed_time = time.time() - start_time
-        if elapsed_time > 5:
-            break
-
-        # Listen to the keyboard for presses.
+        detected_fruits.append({
+            "fruit_name": class_name[2:],
+            "confidence_score": float(np.round(confidence_score * 100)),
+            "image": cv2.cvtColor(image[0], cv2.COLOR_RGB2BGR)  # Save the image for display
+        })
+            
         keyboard_input = cv2.waitKey(1)
 
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
-            break
+            last_detection = detected_fruits[-1]
+            print(f"Detected Fruit: {last_detection['fruit_name']}, Confidence Score: {last_detection['confidence_score']}")
+            return last_detection['fruit_name'], last_detection['confidence_score'], last_detection['image']
 
     camera.release()
     cv2.destroyAllWindows()
 
-    detected_fruits.append({
-        "fruit_name": class_name[2:],
-        "confidence_score": float(np.round(confidence_score * 100)),
-        "image": cv2.cvtColor(image[0], cv2.COLOR_RGB2BGR)  # Save the image for display
-    })
-    
-    return detected_fruits
+    return last_detection['fruit_name'], last_detection['confidence_score'], last_detection['image']
+
+# Testing the function ouput
+fruit_name, score, image = detect_fruit()
+print(fruit_name, score)
