@@ -2,6 +2,8 @@
 
 import cv2
 import numpy as np
+from PIL import Image, ImageTk
+import numpy as np
 import time
 
 from keras.models import load_model
@@ -65,3 +67,9 @@ def detect_fruit():
 # Testing the function ouput
 fruit_name, score, image = detect_fruit()
 print(fruit_name, score)
+
+#Testing the image output
+cv2.namedWindow("fruit")
+cv2.imshow("fruit", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
