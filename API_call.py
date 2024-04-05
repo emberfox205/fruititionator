@@ -20,7 +20,7 @@ def get_api(keyword: str) -> dict:
     print(f"Status code: {response.status_code}")
     if response.status_code == 200:
         res_json: list = list(response.json())
-        return res_json[0]
+        return res_json[0] if res_json else {}
     else:
         return {}
     
@@ -36,10 +36,10 @@ def format_data(response: list) -> dict:
     return nutrition_data
 
 def main():
-    keyword = "apple red delicious"
+    keyword = "HMS Hood"
     response = get_api(keyword)  
-    print(f"{response['description']}: {response['fdcId']}")
     if response:
+        print(f"{response['description']}: {response['fdcId']}")
         print(json.dumps(format_data(response), indent=4))
     else:
         print(response)
