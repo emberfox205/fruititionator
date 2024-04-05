@@ -36,11 +36,7 @@ def format_data(response: list) -> dict:
     return nutrition_data
 
 def main():
-<<<<<<< HEAD
-    keyword = "con cu"
-=======
     keyword = "HMS Hood"
->>>>>>> main
     response = get_api(keyword)  
     if response:
         print(f"{response['description']}: {response['fdcId']}")
