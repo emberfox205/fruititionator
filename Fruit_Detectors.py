@@ -48,7 +48,7 @@ def detect_fruit():
         detected_fruits.append({
             "fruit_name": class_name[2:],
             "confidence_score": float(np.round(confidence_score * 100)),
-            "image": ((image[0]+ 1) * 127.5).astype(np.uint8)  # Save the image for display
+            "image": cv2.cvtColor(((image[0]+ 1) * 127.5), cv2.COLOR_BGR2RGB).astype(np.uint8)  # Save the image for display
         })
             
         keyboard_input = cv2.waitKey(1)
@@ -59,15 +59,11 @@ def detect_fruit():
             print(f"Detected Fruit: {last_detection['fruit_name']}, Confidence Score: {last_detection['confidence_score']}")
             camera.release()
             cv2.destroyAllWindows()
-            return last_detection['fruit_name'], last_detection['confidence_score'], last_detection['image']
-
+            return last_detection
     
 
-    return last_detection['fruit_name'], last_detection['confidence_score'], last_detection['image']
-
 if __name__ == '__main__':
-    fruit_name, score, image = detect_fruit()
-    print(fruit_name, score)
-    cv2.imshow("Webcam Image", image)
+    Read = detect_fruit()
+    cv2.imshow("Webcam Image", cv2.cvtColor(Read["image"], cv2.COLOR_BGR2RGB))
     cv2.waitKey(0)
     cv2.destroyAllWindows()

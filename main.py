@@ -25,11 +25,10 @@ class FruitDetectorApp:
 
     def detect_fruit(self):
 
-        detected_fruits = detect_fruit()
-        last_detection = detected_fruits[-1]
+        last_detection = detect_fruit()
         
-        self.label.config(text=f"Detected Fruit: {last_detection['fruit_name']}")
-        self.label.config(text=f"Confidence Score: {last_detection['confidence_score']}")
+        new_text = f"\nDetected Fruit: {last_detection['fruit_name']}\nConfidence Score: {last_detection['confidence_score']}"
+        self.label.config(text=new_text)
         self.display_image(last_detection['image'])
 
     def display_image(self, image):
@@ -38,13 +37,13 @@ class FruitDetectorApp:
             print("Error: Unable to capture image from camera.")
             return
 
-        image = Image.fromarray((image*255).astype(np.uint8)).resize((244, 244)).convert('RGB')
+        image = Image.fromarray(image).resize(size=(500, 500))
         image = ImageTk.PhotoImage(image=image)
         
         if hasattr(self, 'image_on_canvas'):
             self.canvas.delete(self.image_on_canvas)
         
-        self.image_on_canvas = self.canvas.create_image(20, 100, anchor="NW", image=image)
+        self.image_on_canvas = self.canvas.create_image(20, 100, anchor="nw", image=image)
         self.canvas.image = image
 
 
