@@ -1,10 +1,12 @@
 import requests, os, json
 from dotenv import load_dotenv
+from custom_classes import Fruit_Nutrition
+from typing import Union
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
-def get_api(keyword: str) -> dict:
+def get_api(keyword: str) -> Union[Fruit_Nutrition, None]:
     url = "https://api.nal.usda.gov/fdc/v1/foods/list"
     data = {
         "generalSearchInput": keyword,
@@ -20,30 +22,27 @@ def get_api(keyword: str) -> dict:
     print(f"Status code: {response.status_code}")
     if response.status_code == 200:
         res_json: list = list(response.json())
-        return res_json[0] if res_json else {}
+        return format_data(res_json[0], keyword) if res_json else None
     else:
-        return {}
+        return None
     
-def format_data(response: list) -> dict:
-    nutrition_data = {}
+def format_data(response: list, fruit_name: str) -> Fruit_Nutrition:
+    nutrition = {}
     for nutrient in response["foodNutrients"]:
         name = nutrient["name"]
         unit = nutrient["unitName"]
         amount = nutrient["amount"]
         if amount > 0 and unit != "kJ":
-            if name not in nutrition_data.keys():
-                nutrition_data[name] = [amount, unit]
-    return nutrition_data
+            if name not in nutrition.keys():
+                nutrition[name] = f"{amount} {unit}"
+    fruit_nutrition = Fruit_Nutrition(fruit_name, response["fdcId"], nutrition)
+    return fruit_nutrition
 
 def main():
-    keyword = "HMS Hood"
-    response = get_api(keyword)  
-    if response:
-        print(f"{response['description']}: {response['fdcId']}")
-        print(json.dumps(format_data(response), indent=4))
-    else:
-        print(response)
-        
+    keyword = "apple red delicious"
+    fruit_data = get_api(keyword)  
+    print(fruit_data)
+       
 if __name__ == "__main__":
     main()
     
