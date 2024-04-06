@@ -11,7 +11,7 @@ def main():
     fruits_detected = []
     while True:
         fruit_nutrition = get_nutrition()
-        if fruit_nutrition.nutrition == {}:
+        if fruit_nutrition == None:
             print("Unable to get data value, closing...")    
             break
         else:
@@ -24,7 +24,7 @@ def main():
                 time.sleep(0.5)
             else:
                 print("User timed out")
-                print(f"Scan count {scan_count}")
+                print(f"Scan count: {scan_count}")
                 for fruit in fruits_detected:
                     print(f"Name: {fruit}")
                 break
