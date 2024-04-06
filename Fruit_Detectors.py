@@ -58,7 +58,7 @@ def detect_fruit() -> Detected_Object:
         if keyboard_input == 27:
             last_detection = detected_fruits[-1]
             detected_obj = Detected_Object(last_detection["fruit_name"], last_detection["confidence_score"], last_detection["image"])
-            print(detected_fruit)
+            print(detected_obj)
             camera.release()
             cv2.destroyAllWindows()
             return detected_obj
