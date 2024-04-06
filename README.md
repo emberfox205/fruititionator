@@ -6,7 +6,8 @@ A Python project to detect fruits using Computer Vision and return their nutriti
 ## Documentation
 #### API call (Merge pending)
 - All necessary functions are in `API_call.py`.
-- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains attributes `name` of type `str`, `fdcId` of type `int` and `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value. 
+- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains attributes `name` of type `str`, `fdcId` of type `int` and `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value.
+- In case the keyword is invalid, the function returns `None`.
 - Example of printing `Fruit_Nutrition` / the return value of `get_api()`:
 ```Python
 Status code: 200
