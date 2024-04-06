@@ -5,10 +5,11 @@ import numpy as np
 from PIL import Image, ImageTk
 import numpy as np
 import time
+from custom_classes import Detected_Object
 
 from keras.models import load_model
 
-def detect_fruit():
+def detect_fruit() -> Detected_Object:
     # Load the model
     model = load_model("keras_model.h5", compile=False)
 
@@ -56,16 +57,17 @@ def detect_fruit():
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
             last_detection = detected_fruits[-1]
-            print(f"Detected Fruit: {last_detection['fruit_name']}, Confidence Score: {last_detection['confidence_score']}")
+            detected_obj = Detected_Object(last_detection["fruit_name"], last_detection["confidence_score"], last_detection["image"])
+            print(detected_obj)
             camera.release()
             cv2.destroyAllWindows()
-            return last_detection['fruit_name'], last_detection['confidence_score'], last_detection['image']
+            return detected_obj
 
     
 
     # Testing the function ouput
 if __name__ == '__main__':
-    fruit_name, score, image = detect_fruit()
-    cv2.imshow("Webcam Image", cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+    detected_fruit = detect_fruit()
+    cv2.imshow("Webcam Image", cv2.cvtColor(detected_fruit.image, cv2.COLOR_RGB2BGR))
     cv2.waitKey(0)
     cv2.destroyAllWindows()
