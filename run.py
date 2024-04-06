@@ -15,12 +15,12 @@ def main():
             print("Unable to get data value, closing...")    
             break
         else:
+            scan_count += 1
             fruits_detected.append(fruit_nutrition.name)
             print(fruit_nutrition)
             prompt = input("input 'e' for rescan, anything else to stop the program: ")
             if prompt == 'e':
                 print("__RESTARTING__")
-                scan_count += 1
                 time.sleep(0.5)
             else:
                 print("User timed out")
