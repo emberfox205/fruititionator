@@ -6,7 +6,7 @@ class Detected_Object:
         self.score = confidence_score
         self.image = image 
     def __str__(self):
-        return f"Fruit Mame: {self.name}\nConfidence Score: {self.score}"
+        return f"Fruit Name: {self.name}\nConfidence Score: {self.score}"
 
 class Fruit_Nutrition:
     def __init__(self, name: str, fdcId: int, nutrition: dict) -> None:
