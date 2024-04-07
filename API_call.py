@@ -1,4 +1,4 @@
-import requests, os, json
+import requests, os
 from dotenv import load_dotenv
 from custom_classes import Fruit_Nutrition
 from typing import Union
