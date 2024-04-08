@@ -56,7 +56,14 @@ def detect_fruit() -> Detected_Object:
 
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
-            last_detection = detected_fruits[-1]
+            max, index = 0, 0
+            last_result = detected_fruits[-15::]
+            for i in last_result:
+                if i["confidence_score"] > max:
+                    max = i["confidence_score"]
+                    index = i
+
+            last_detection = last_result[last_result.index(index)]
             detected_obj = Detected_Object(last_detection["fruit_name"], last_detection["confidence_score"], last_detection["image"])
             print(detected_obj)
             camera.release()
