@@ -13,7 +13,7 @@ A Python project to detect fruits using Computer Vision and return their nutriti
  - Relevant functions are in `Fruit_Detectors.py`. 
  - The `detect_fruit()` function takes no argument. It opens device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of ten possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
 > [!NOTE]
-> All classes' names can be found in `labels.txt`.
+> All the fruit classes' names can be found in `labels.txt`.
  - The function returns an instance of the `Detected_Object` class, which contains 3 attributes:
      - `name` of type `str`.
      - `score` of type `float`.
@@ -24,6 +24,8 @@ A Python project to detect fruits using Computer Vision and return their nutriti
     -  `name` of type `str`.
     -  `fdcId` of type `int`
     -  `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value.
+> [!NOTE]
+> Info about `Detected_Object` and `Fruit_Nutrition` classes are in `custom_classes.py`.
 - In case the keyword is invalid, the function returns `None`.
 - Example of printing `Fruit_Nutrition` / the return value of `get_api()`:
 ```
