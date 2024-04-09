@@ -4,9 +4,26 @@
 A Python project to detect fruits using Computer Vision and return their nutrition values.
 
 ## Documentation
+#### CLI client (temporary)
+ - Purpose: provides a practical demo to test changes in other files.
+ - First detects with `detect_fruit()` and gets the nutrition with `get_api()` using the `Detected_obj.name` attribute as argument. All this is abstracted within the `get_nutrition()` function. The function returns an instance of `Fruit_Nutrition` class.
+ - In `main()`, the program either exits upon detecting empty response or prints out the nutrition onto the terminal. Upon finnishing with the query, user is asked to either continue or exit using hotkeys (`e` or otherwise).
+ - Upon exiting, the program prints number of scans (times used) and a list of detected fruits. 
+#### Image Detection 
+ - Relevant functions are in `Fruit_Detectors.py`. 
+ - The `detect_fruit()` function takes no argument. It opens device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of ten possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
+> [!NOTE]
+> All classes' names can be found in `labels.txt`.
+ - The function returns an instance of the `Detected_Object` class, which contains 3 attributes:
+     - `name` of type `str`.
+     - `score` of type `float`.
+     - `image` of type `ndarray`. 
 #### API call 
 - All necessary functions are in `API_call.py`.
-- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains attributes `name` of type `str`, `fdcId` of type `int` and `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value.
+- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains 3 attributes:
+    -  `name` of type `str`.
+    -  `fdcId` of type `int`
+    -  `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value.
 - In case the keyword is invalid, the function returns `None`.
 - Example of printing `Fruit_Nutrition` / the return value of `get_api()`:
 ```
