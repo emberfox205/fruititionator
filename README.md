@@ -6,12 +6,12 @@ A Python project to detect fruits using Computer Vision and return their nutriti
 ## Documentation
 #### CLI client (temporary)
  - Purpose: provides a practical demo to test changes in other files.
- - First detects with `detect_fruit()` and gets the nutrition with `get_api()` using the `Detected_obj.name` attribute as argument. All this is abstracted within the `get_nutrition()` function. The function returns an instance of `Fruit_Nutrition` class.
- - In `main()`, the program either exits upon detecting empty response or prints out the nutrition onto the terminal. Upon finnishing with the query, user is asked to either continue or exit using hotkeys (`e` or otherwise).
+ - First detects with `detect_fruit()` and gets the nutrition with `get_api()` using the `Detected_Object.name` attribute as argument. All this is abstracted within the `get_nutrition()` function. The function returns an instance of `Fruit_Nutrition` class.
+ - In `main()`, the program either exits upon detecting empty response or prints out the nutrition onto the terminal. Upon finishing with the query, user is asked to either continue or exit using hotkeys (`e` or otherwise).
  - Upon exiting, the program prints number of scans (times used) and a list of detected fruits. 
 #### Image Detection 
  - Relevant functions are in `Fruit_Detectors.py`. 
- - The `detect_fruit()` function takes no argument. It opens device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of ten possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
+ - The `detect_fruit()` function takes no argument. It opens the device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of ten possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
 > [!NOTE]
 > All the fruit classes' names can be found in `labels.txt`.
  - The function returns an instance of the `Detected_Object` class, which contains 3 attributes:
