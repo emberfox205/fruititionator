@@ -1,4 +1,4 @@
-import requests, os
+import requests, json, os
 from dotenv import load_dotenv
 from custom_classes import Fruit_Nutrition
 from typing import Union
@@ -6,7 +6,7 @@ from typing import Union
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
-def get_api(keyword: str) -> Union[Fruit_Nutrition, None]:
+def get_api(client, NUTRITION_FEED_ID, keyword: str) -> Union[Fruit_Nutrition, None]:
     url = "https://api.nal.usda.gov/fdc/v1/foods/list"
     data = {
         "generalSearchInput": keyword,
@@ -22,11 +22,11 @@ def get_api(keyword: str) -> Union[Fruit_Nutrition, None]:
     print(f"Status code: {response.status_code}")
     if response.status_code == 200:
         res_json: list = list(response.json())
-        return format_data(res_json[0], keyword) if res_json else None
+        return format_data(client, NUTRITION_FEED_ID, res_json[0], keyword) if res_json else None
     else:
         return None
     
-def format_data(response: list, fruit_name: str) -> Fruit_Nutrition:
+def format_data(client, NUTRITION_FEED_ID, response: list, fruit_name: str) -> Fruit_Nutrition:
     nutrition = {}
     for nutrient in response["foodNutrients"]:
         name = nutrient["name"]
@@ -36,6 +36,8 @@ def format_data(response: list, fruit_name: str) -> Fruit_Nutrition:
             if name not in nutrition.keys():
                 nutrition[name] = f"{amount} {unit}"
     fruit_nutrition = Fruit_Nutrition(fruit_name, response["fdcId"], nutrition)
+    nutrition_json = json.dumps(nutrition, indent=2)
+    client.publish(NUTRITION_FEED_ID, nutrition_json)
     return fruit_nutrition
 
 def main():
