@@ -1,10 +1,10 @@
-import time
 import os
 import sys
-from dotenv import load_dotenv
+import time
 from Adafruit_IO import  MQTTClient 
-from fruit_detector import detect_fruit
+from dotenv import load_dotenv
 from api_call import get_api
+from fruit_detector import detect_fruit
 from image_processor import image_publisher
 
 
@@ -32,6 +32,7 @@ def main():
     fruits_detected = []
     while True:
         detected_fruit = detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID)
+        time.sleep(0.5)
         image_publisher(client, IMAGE_FEED_ID, detected_fruit.image)
         fruit_nutrition = get_api(client, NUTRITION_FEED_ID, detected_fruit.name)
         if fruit_nutrition == None:
