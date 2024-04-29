@@ -1,11 +1,8 @@
-# Responsible for scanning fruit objects.
-
 import cv2
 import numpy as np
 from collections import Counter
 from keras.models import load_model
 from custom_classes import Detected_Object
-
 
 def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_Object:
     # Load the model
@@ -23,18 +20,22 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
     last_class = None
 
     while True:
+        # Capture image from camera
         image = camera.read()[1]
 
         if image is None:
             print("Error: Unable to capture image from camera.")
             break
 
+        # Resize image to match model input size
         image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
         cv2.imshow("Webcam Image", image)
 
+        # Preprocess image for model input
         image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
         image = (image / 127.5) - 1
 
+        # Make prediction using the model
         prediction = model.predict(image)
         index = np.argmax(prediction)
         class_name = class_names[index]
@@ -42,7 +43,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
 
         print(f"Class: {class_name[2:]}, Confidence Score: {np.round(confidence_score * 100)}, Frame: {frame}")
 
-        # Limiting publishing rate while keeping the camera feed smooth.
+        # Limit publishing rate while keeping the camera feed smooth (about 20 FPS).
         if frame % 30 == 0 and last_class == class_name[2:]:
             client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
         if frame % 15 == 0 and last_class != class_name[2:]:
@@ -51,6 +52,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
             last_class = class_name[2:]
         frame += 1
 
+        # Store detected results
         detected_results.append({
             "fruit_name": class_name[2:],
             "confidence_score": float(np.round(confidence_score * 100)),
@@ -59,6 +61,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
 
         keyboard_input = cv2.waitKey(1)
 
+        # Once user quits, choose the most common object name, from that choose the result with the highest confidence
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
             latest_results = detected_results[-10:]
@@ -70,7 +73,10 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
                                            best_result["image"])
             client.publish(CONFIDENCE_FEED_ID, best_result["confidence_score"])
             client.publish(DETECTED_OBJ_FEED_ID, best_result["fruit_name"])
+
             print(detected_obj)
+
+            # Release camera and close windows
             camera.release()
             cv2.destroyAllWindows()
             return detected_obj
