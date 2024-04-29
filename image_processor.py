@@ -1,6 +1,5 @@
 import io
 import base64
-import cv2
 from PIL import Image
 
 def resize_image(image, target_size=100):
