@@ -22,10 +22,14 @@ def  connected(client):
 def  disconnected(client):
     print("Disconnected from the AIO server!!!")
     sys.exit (1)
+
+def  message(client , feed_id , payload):
+    print("Received: " + payload)
     
 client = MQTTClient(AIO_USERNAME , AIO_KEY)
 client.on_connect = connected
 client.on_disconnect = disconnected
+client.on_message = message
 
 def main():
     scan_count = 0
@@ -45,9 +49,9 @@ def main():
         if prompt == 'e':
             print("__RESTARTING__")
             time.sleep(0.5)
-            client.connect()
         else:
             client.disconnect()
+            time.sleep(0.01)
             print("INFO :: User timed out.")
             print(f"Successful scan count: {scan_count}")
             for fruit in fruits_detected:
@@ -56,5 +60,6 @@ def main():
     
 if __name__ == '__main__':
     client.connect()
+    client.loop_background()
     main()
  
