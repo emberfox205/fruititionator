@@ -40,17 +40,15 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
         class_name = class_names[index]
         confidence_score = prediction[0][index]
 
-        print(f"Class: {class_name[2:]}, Confidence Score: {np.round(confidence_score * 100)}")
+        print(f"Class: {class_name[2:]}, Confidence Score: {np.round(confidence_score * 100)}, Frame: {frame_thres}")
 
-        # publish every 30th frame
-        client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
-
-        if frame_thres % 30 == 0 and last_class == class_name[2:]:
+        # Limiting publishing rate while keeping the camera feed smooth.
+        if frame_thres % 120 == 0 and last_class == class_name[2:]:
+            client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
+        if frame_thres % 6 == 0 and last_class != class_name[2:]:
+            client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
             client.publish(DETECTED_OBJ_FEED_ID, class_name[2:])
-        elif last_class != class_name[2:]:
-            client.publish(DETECTED_OBJ_FEED_ID, class_name[2:])
 
-        time.sleep(1.5)
         last_class = class_name[2:]
         frame_thres += 1
 
@@ -65,7 +63,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
             max_score, index = 0, 0
-            last_result = detected_fruits[-5:]
+            last_result = detected_fruits[-2:]
 
             for i in last_result:
                 if i["confidence_score"] > max_score:
@@ -76,9 +74,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
             detected_obj = Detected_Object(last_detection["fruit_name"],
                                            last_detection["confidence_score"],
                                            last_detection["image"])
-            print(detected_obj, f"frame: {frame_thres}")
+            print(detected_obj)
             camera.release()
             cv2.destroyAllWindows()
             return detected_obj
-
-        frame_thres += 1
