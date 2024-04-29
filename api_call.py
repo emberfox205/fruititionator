@@ -1,7 +1,10 @@
-import requests, json, os
+import json
+import os
+import requests
 from dotenv import load_dotenv
-from custom_classes import Fruit_Nutrition
 from typing import Union
+from custom_classes import Fruit_Nutrition
+
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
@@ -22,7 +25,11 @@ def get_api(client, NUTRITION_FEED_ID, keyword: str) -> Union[Fruit_Nutrition, N
     print(f"Status code: {response.status_code}")
     if response.status_code == 200:
         res_json: list = list(response.json())
-        return format_data(client, NUTRITION_FEED_ID, res_json[0], keyword) if res_json else None
+        if res_json:
+            return format_data(client, NUTRITION_FEED_ID, res_json[0], keyword)  
+        else:
+            client.publish(NUTRITION_FEED_ID, "None") 
+            return None
     else:
         return None
     
