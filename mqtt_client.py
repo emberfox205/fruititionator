@@ -45,6 +45,7 @@ def main():
         if prompt == 'e':
             print("__RESTARTING__")
             time.sleep(0.5)
+            client.connect()
         else:
             client.disconnect()
             print("INFO :: User timed out.")
