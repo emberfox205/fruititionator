@@ -43,9 +43,9 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
         print(f"Class: {class_name[2:]}, Confidence Score: {np.round(confidence_score * 100)}, Frame: {frame}")
 
         # Limiting publishing rate while keeping the camera feed smooth.
-        if frame % 120 == 0 and last_class == class_name[2:]:
+        if frame % 30 == 0 and last_class == class_name[2:]:
             client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
-        if frame % 6 == 0 and last_class != class_name[2:]:
+        if frame % 15 == 0 and last_class != class_name[2:]:
             client.publish(CONFIDENCE_FEED_ID, str(np.round(confidence_score * 100)))
             client.publish(DETECTED_OBJ_FEED_ID, class_name[2:])
             last_class = class_name[2:]
