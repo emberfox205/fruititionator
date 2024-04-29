@@ -27,19 +27,13 @@ client = MQTTClient(AIO_USERNAME , AIO_KEY)
 client.on_connect = connected
 client.on_disconnect = disconnected
 
-def get_data():
-    detected_fruit = detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID)
-    if detected_fruit.name == "Nothing": 
-        return None
-    else:
-        image_publisher(client, IMAGE_FEED_ID, detected_fruit.image)
-        return get_api(client, NUTRITION_FEED_ID, detected_fruit.name)
-    
 def main():
     scan_count = 0
     fruits_detected = []
     while True:
-        fruit_nutrition = get_data()
+        detected_fruit = detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID)
+        image_publisher(client, IMAGE_FEED_ID, detected_fruit.image)
+        fruit_nutrition = get_api(client, NUTRITION_FEED_ID, detected_fruit.name)
         if fruit_nutrition == None:
             print("WARNING :: Unable to get data.")    
         else:
