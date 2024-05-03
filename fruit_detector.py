@@ -60,15 +60,16 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
         })
 
         # Reduce the size of detected_results to its last 10 elements
-        if len(detected_results) > 10:
-            detected_results = detected_results[-10:]
+        frame_threshold = 10
+        if len(detected_results) > frame_threshold:
+            detected_results = detected_results[-frame_threshold:]
             
         keyboard_input = cv2.waitKey(1)
 
         # Once user quits, choose the most common object name, from that choose the result with the highest confidence
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
-            detected_results = detected_results[-10:]
+            detected_results = detected_results[-frame_threshold:]
             freq_counter = Counter([result["fruit_name"] for result in detected_results])
             most_freq_results = [result for result in detected_results if result["fruit_name"] == (freq_counter.most_common(1)[0][0])]
             best_result = max(most_freq_results, key=lambda result: result["confidence_score"])
