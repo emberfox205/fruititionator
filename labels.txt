@@ -1,0 +1,8 @@
+0 Apple Red Delicious Raw
+1 Banana Raw
+2 Green Grape Raw
+3 Orange Raw
+4 Strawberry Raw
+5 Apple Granny Smith Raw
+6 Peach Raw
+7 Nothing
