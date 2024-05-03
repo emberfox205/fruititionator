@@ -64,9 +64,9 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
         # Once user quits, choose the most common object name, from that choose the result with the highest confidence
         # 27 is the ASCII for the esc key on your keyboard.
         if keyboard_input == 27:
-            latest_results = detected_results[-10:]
-            freq_counter = Counter([result["fruit_name"] for result in latest_results])
-            most_freq_results = [result for result in latest_results if result["fruit_name"] == (freq_counter.most_common(1)[0][0])]
+            detected_results = detected_results[-10:]
+            freq_counter = Counter([result["fruit_name"] for result in detected_results])
+            most_freq_results = [result for result in detected_results if result["fruit_name"] == (freq_counter.most_common(1)[0][0])]
             best_result = max(most_freq_results, key=lambda result: result["confidence_score"])
             detected_obj = Detected_Object(best_result["fruit_name"],
                                            best_result["confidence_score"],
