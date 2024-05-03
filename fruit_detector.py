@@ -51,7 +51,7 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
             client.publish(DETECTED_OBJ_FEED_ID, class_name[2:])
             last_class = class_name[2:]
         frame += 1
-
+        
         # Store detected results
         detected_results.append({
             "fruit_name": class_name[2:],
@@ -59,6 +59,10 @@ def detect_fruit(client, DETECTED_OBJ_FEED_ID, CONFIDENCE_FEED_ID) -> Detected_O
             "image": cv2.cvtColor(((image[0] + 1) * 127.5), cv2.COLOR_BGR2RGB).astype(np.uint8)  # Save the image for display
         })
 
+        # Reduce the size of detected_results to its last 10 elements
+        if len(detected_results) > 10:
+            detected_results = detected_results[-10:]
+            
         keyboard_input = cv2.waitKey(1)
 
         # Once user quits, choose the most common object name, from that choose the result with the highest confidence
