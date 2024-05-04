@@ -47,7 +47,9 @@ To view them in a compact GUI, create a dashboard, then blocks of the same name 
 
 > [!NOTE] 
 > Some values are best displayed on specific block types:
+> 
 > "Captured Image" -> "Image" block.
+> 
 > "Nutrition Values" -> "Multiline Text" block.
 
 ### Running the Project
