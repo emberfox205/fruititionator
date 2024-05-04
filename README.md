@@ -45,7 +45,8 @@ To track published data on your Adafruit account, create four feeds with the fol
 
 To view them in a compact GUI, create a dashboard, then blocks of the same name as the feeds and connect them to their respective feed.
 
-> [!NOTE] Some values are best displayed on specific block types:
+> [!NOTE] 
+> Some values are best displayed on specific block types:
 > "Captured Image" -> "Image" block.
 > "Nutrition Values" -> "Multiline Text" block.
 
