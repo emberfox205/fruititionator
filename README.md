@@ -18,7 +18,7 @@ Get your USDA FoodData Central API key [here](https://fdc.nal.usda.gov/api-key-s
 
 Make an Adafruit IO account [here](https://accounts.adafruit.com/users/sign_up) or log in [here](https://accounts.adafruit.com/users/sign_in).
 
-Click on the key icon on the top right orner of the IO tab to view your Adafruit IO (AIO) username and key.
+Click on the key icon on the top right corner of the IO tab to view your Adafruit IO (AIO) username and key.
 
 ![Account Page > IO tab > Gold-Circle-with-Black-Key logo](https://cdn.discordapp.com/attachments/1071117548311027723/1236281850297585694/Adafruit_IO_key_scr.png?ex=663770b2&is=66361f32&hm=3f0853b7cca30d170020b3cd271bedf5251de2a85d230dbed278bf45caa0a2fe&)
 
