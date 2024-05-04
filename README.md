@@ -4,6 +4,57 @@
 
 Fruititionator is a Python project that leverages Computer Vision to detect fruits in real-time, fetch their nutritional values, and publish this data to an Adafruit IO dashboard using MQTT.
 
+## Installation
+
+Clone the repo:
+
+`$ git clone git@github.com:emberfox205/fruititionator.git`
+
+Import libaries (with pip):
+
+`$ pip install -r requirements.txt`
+
+Get your USDA FoodData Central API key [here](https://fdc.nal.usda.gov/api-key-signup.html).
+
+Make an Adafruit IO account [here](https://accounts.adafruit.com/users/sign_up) or log in [here](https://accounts.adafruit.com/users/sign_in).
+
+Click on the key icon on the top right orner of the IO tab to view your Adafruit IO (AIO) username and key.
+
+![Account Page > IO tab > Gold-Circle-with-Black-Key logo](https://cdn.discordapp.com/attachments/1071117548311027723/1236281850297585694/Adafruit_IO_key_scr.png?ex=663770b2&is=66361f32&hm=3f0853b7cca30d170020b3cd271bedf5251de2a85d230dbed278bf45caa0a2fe&)
+
+In your local repo, create a `.env` file:
+
+`$ code .env`
+
+Structure it like this:
+
+```.env
+API_KEY=USDA_FDC_key_goes_here
+AIO_USERNAME=AIO_username_goes_here
+AIO_KEY=AIO_key_goes_here
+```
+
+Replace `your_usda_api_key`, `your_aio_username`, and `your_aio_key` with your actual keys.
+
+To track published data on your Adafruit account, create four feeds with the following names and specifications:
+
+1. Confidence Score: Feed History On
+2. Detected Object: Feed History On
+3. Captured Image: Feed History Off
+4. Nutrition Values: Feed History Off
+
+To view them in a compact GUI, create a dashboard, then blocks of the same name as the feeds and connect them to their respective feed.
+
+> [!NOTE] Some values are best displayed on specific block types:
+> "Captured Image" -> "Image" block.
+> "Nutrition Values" -> "Multiline Text" block.
+
+### Running the Project
+
+After installation, in your local repo, navigate to `mqtt_client.py` and run the project. Alternatively, execute in your terminal the following:
+
+`$ python mqtt_client.py`
+
 ## Documentation
 
 ### MQTT Client
