@@ -29,12 +29,12 @@ In your local repo, create a `.env` file:
 Structure it like this:
 
 ```.env
-API_KEY=USDA_FDC_key_goes_here
-AIO_USERNAME=AIO_username_goes_here
-AIO_KEY=AIO_key_goes_here
+API_KEY=your_usda_key
+AIO_USERNAME=your_aio_username
+AIO_KEY=your_aio_key
 ```
 
-Replace `your_usda_api_key`, `your_aio_username`, and `your_aio_key` with your actual keys.
+Replace `your_usda_key`, `your_aio_username`, and `your_aio_key` with your actual keys.
 
 To track published data on your Adafruit account, create four feeds with the following names and specifications:
 
