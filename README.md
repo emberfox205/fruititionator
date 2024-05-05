@@ -72,7 +72,7 @@ After installation, in your local repo, navigate to `mqtt_client.py` and run the
 ### Image Detection
 
 - Relevant functions are in `fruit_detector.py`.
-- The `detect_fruit()` function takes no argument. It opens the device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of the possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
+- The `detect_fruit()` function takes 3 arguments to publish the data later. It opens the device's camera (if available and given permission) and also initiates a window showing the camera feed. The model looks for one out of the possible classes of objects, one of which being `Nothing` and the rest being types of fruits.
 - This function is also responsible for publishing to 2 Adafruit feeds: `Confidence Score` and `Detected Object`.
 
 > [!NOTE]
@@ -86,7 +86,7 @@ After installation, in your local repo, navigate to `mqtt_client.py` and run the
 ### API call
 
 - All necessary functions are in `api_call.py`.
-- The script takes one string argument `keyword`, which is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains 3 attributes:
+- The script takes 3 arguments, one of which, `keyword` is then used to query USDA Central Food Database (specifically the Foundation Food and SR Legacy) using the `get_api()` function. It returns an instance of the `Fruit_Nutrition` dataclass, which contains 3 attributes:
   - `name` of type `str`.
   - `fdcId` of type `int`
   - `nutrition` of type `dict`. Inside `nutrition`, a key-value pair consists of `nutrient_name` as key, an f-string `f"{amount} {unit}"` as value.
