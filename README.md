@@ -8,11 +8,15 @@ Fruititionator is a Python project that leverages Computer Vision to detect frui
 
 Clone the repo:
 
-`$ git clone git@github.com:emberfox205/fruititionator.git`
+```bash
+$ git clone git@github.com:emberfox205/fruititionator.git
+```
 
 Import libaries (with pip):
 
-`$ pip install -r requirements.txt`
+```bash
+$ pip install -r requirements.txt
+```
 
 Get your USDA FoodData Central API key [here](https://fdc.nal.usda.gov/api-key-signup.html).
 
@@ -24,7 +28,9 @@ Click on the key icon on the top right corner of the IO tab to view your Adafrui
 
 In your local repo, create a `.env` file:
 
-`$ code .env`
+```
+$ code .env
+```
 
 Structure it like this:
 
@@ -56,7 +62,9 @@ To view them in a compact GUI, create a dashboard, then blocks of the same name 
 
 After installation, in your local repo, navigate to `mqtt_client.py` and run the project. Alternatively, execute in your terminal the following:
 
-`$ python mqtt_client.py`
+```
+$ python mqtt_client.py
+```
 
 ## Documentation
 
